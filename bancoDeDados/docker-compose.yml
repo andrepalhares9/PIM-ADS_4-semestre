@@ -1,0 +1,21 @@
+services:
+
+  mariadb:
+    container_name: bancoDeDados_pim
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./sql/mariadb-data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - db-net-pim
+
+networks:
+  db-net:
+    name: db-net-pim
+    driver: bridge

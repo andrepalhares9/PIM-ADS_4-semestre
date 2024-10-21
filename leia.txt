@@ -1,0 +1,13 @@
+
+Nos arquivos, está incluída uma API desenvolvida em Node.js, que serve as páginas e disponibiliza os endpoints para consulta de dados no banco de dados. Além disso, estão presentes as páginas de login e cadastro do PIM, e o projeto em C# com .NET, onde o aplicativo desktop realiza autenticação diretamente no banco de dados. Também há um arquivo docker-compose.yml para configurar o banco de dados, junto com os scripts SQL necessários para a criação das tabelas.
+
+
+Link GitHub: "https://github.com/SNeto99/PIM-4-semestre"
+
+
+Alunos:
+
+	André de Matos Palhares - R005437
+	Carlos Alberto Seno Neto - R0179B9
+	Lucas Francisco da Silva - G880927
+	Davi Lippa Soares - G8747J3
