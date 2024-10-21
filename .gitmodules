@@ -1,0 +1,3 @@
+[submodule "pim_web"]
+	path = pim_web
+	url = https://github.com/SNeto99/pim_web
