@@ -1,0 +1,1291 @@
+    \documentclass[12pt,a4paper]{article}
+
+    % Pacotes necessários
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage[brazil]{babel}
+    \usepackage{graphicx}
+    \usepackage{float}
+    \usepackage{listings}
+    \usepackage{hyperref}
+    \usepackage{xcolor}
+    \usepackage{geometry}
+    \usepackage{amsmath}
+    \usepackage{caption}
+    \usepackage{subcaption}
+    \usepackage{booktabs}
+    \usepackage{enumitem}
+    \usepackage{tikz}
+    \usepackage{pgfplots}
+    \usepackage{pgf-umlcd}
+    \usepackage{verbatim}
+
+    % Configurações de página
+    \geometry{
+        a4paper,
+        left=3cm,
+        right=2cm,
+        top=3cm,
+        bottom=2cm
+    }
+
+    % Configurações do hyperref
+    \hypersetup{
+        colorlinks=true,
+        linkcolor=blue,
+        urlcolor=blue,
+        citecolor=blue,
+        pdfstartview=FitH,
+        pdftitle={Sistema Urban Farm - Documentação Técnica},
+        pdfauthor={Nome dos integrantes do grupo},
+        pdfsubject={Documentação Técnica},
+        pdfkeywords={Urban Farm, Sistema, Documentação}
+    }
+
+    % Configurações para código-fonte
+    \lstset{
+        basicstyle=\ttfamily\footnotesize,
+        breaklines=true,
+        numbers=left,
+        numberstyle=\tiny\color{gray},
+        frame=single,
+        keywordstyle=\color{blue},
+        commentstyle=\color{green!50!black},
+        stringstyle=\color{red},
+        showstringspaces=false,
+        tabsize=4,
+        captionpos=b,
+        language=Java,
+        float
+    }
+
+    % Definições de linguagens adicionais
+    \lstdefinelanguage{Dart}{
+        keywords={class, void, int, double, String, final, if, else, for, while, return, static, import, new, setState, build, Widget, StatelessWidget, StatefulWidget},
+        sensitive=true,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        morestring=[b]',
+        morestring=[b]"
+    }
+
+    \lstdefinelanguage{YAML}{
+        keywords={true,false,null,y,n},
+        sensitive=false,
+        comment=[l]{\#},
+        morestring=[b]',
+        morestring=[b]",
+        moredelim=[s][\color{orange}]{:}{\ },
+        moredelim=**[il][\color{cyan}]{-}
+    }
+
+    \lstdefinelanguage{SQL}{
+        keywords={CREATE, TABLE, INSERT, INTO, VALUES, SELECT, FROM, WHERE, PRIMARY, KEY, INT, VARCHAR, TEXT, DECIMAL, DATETIME, DEFAULT, NOT, NULL, UNIQUE, FOREIGN, REFERENCES, IDENTITY, GETDATE, ON, AFTER, UPDATE, AS, BEGIN, END, INNER, JOIN, ORDER, BY, DESC},
+        sensitive=false,
+        comment=[l]{--},
+        morecomment=[s]{/*}{*/},
+        morestring=[b]',
+        morestring=[b]"
+    }
+
+    \begin{document}
+
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{2cm}
+            {\includegraphics[width=0.3\textwidth]{logo_unip.png}}\\[1cm]
+            
+            {\Huge\textbf{Sistema Urban Farm}}\\[1cm]
+            {\Large Sistema Integrado para Controle de Operações}\\[1cm]
+            {\large Documentação Técnica}\\[3cm]
+            
+            {\large Trabalho apresentado à disciplina de}\\
+            {\large Projeto Integrado Multidisciplinar}\\
+            {\large do curso de Análise e Desenvolvimento de Sistemas}\\[2cm]
+            
+            {\large Desenvolvido por:}\\[0.5cm]
+            André de Matos Palhares - R005437\\
+            Carlos Alberto Seno Neto - R0179B9\\
+            Lucas Francisco da Silva - G880927\\
+            Davi Lippa Soares - G8747J3\\[2cm]
+            
+            {\large UNIP - Universidade Paulista}\\
+            {\large Análise e Desenvolvimento de Sistemas}\\[1cm]
+        \end{center}
+    \end{titlepage}
+
+    \tableofcontents
+    \newpage
+
+    \section{Introdução}
+    \subsection{Contextualização}
+    O Sistema Urban Farm foi desenvolvido para atender às necessidades de gestão e operação de uma fazenda urbana, focando na segurança alimentar e sustentabilidade. O projeto surge em um contexto onde a insegurança alimentar tem se tornado uma preocupação crescente, especialmente após a pandemia.
+
+    \subsection{Objetivos}
+    \begin{itemize}
+        \item Desenvolver um sistema integrado para controle de operações;
+        \item Implementar gestão eficiente de produtos e fornecedores;
+        \item Disponibilizar interface web para acesso amplo;
+        \item Oferecer aplicativo mobile para clientes;
+        \item Garantir conformidade com LGPD;
+        \item Contribuir para a segurança alimentar.
+    \end{itemize}
+
+    \subsection{Escopo do Sistema}
+    O sistema é composto por três componentes principais:
+    \begin{itemize}
+        \item \textbf{Sistema Desktop (C\#)}
+        \begin{itemize}
+            \item Gestão administrativa;
+            \item Controle de estoque;
+            \item Gerenciamento de fornecedores;
+            \item Relatórios gerenciais.
+        \end{itemize}
+        
+        \item \textbf{Sistema Web (ASP.NET)}
+        \begin{itemize}
+            \item Acesso completo às funcionalidades;
+            \item Interface responsiva;
+            \item Gestão de usuários;
+            \item Controle de vendas.
+        \end{itemize}
+        
+        \item \textbf{Aplicativo Mobile (Flutter)}
+        \begin{itemize}
+            \item Interface de loja;
+            \item Catálogo de produtos;
+            \item Carrinho de compras;
+            \item Perfil do usuário.
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Público-Alvo}
+    \begin{itemize}
+        \item Administradores do sistema;
+        \item Funcionários da fazenda urbana;
+        \item Fornecedores;
+        \item Clientes finais.
+    \end{itemize}
+
+    \subsection{Justificativa}
+    O desenvolvimento deste sistema se justifica pela necessidade de:
+    \begin{itemize}
+        \item Otimizar processos operacionais;
+        \item Melhorar controle de produção;
+        \item Facilitar acesso aos produtos;
+        \item Garantir rastreabilidade;
+        \item Promover sustentabilidade.
+    \end{itemize}
+
+    \newpage
+
+    \section{Interfaces do Sistema}
+    \subsection{Sistema Desktop}
+    \subsubsection{Tela de Login}
+    % Adicionar screenshot da tela de login
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/login.png}
+        \caption{Tela de Login - Sistema Desktop}
+    \end{figure}
+
+    \subsubsection{Dashboard Principal}
+    % Adicionar screenshot do dashboard
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/dashboard.png}
+        \caption{Dashboard Principal - Sistema Desktop}
+    \end{figure}
+
+    \subsubsection{Gestão de Produtos}
+    % Adicionar screenshot da tela de produtos
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/produtos.png}
+        \caption{Gestão de Produtos - Sistema Desktop}
+    \end{figure}
+
+    \subsection{Interface Web}
+    \subsubsection{Página Inicial}
+    % Adicionar screenshot da homepage
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/homepage.png}
+        \caption{Página Inicial - Sistema Web}
+    \end{figure}
+
+    \subsubsection{Catálogo de Produtos}
+    % Adicionar screenshot do catálogo
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/catalogo.png}
+        \caption{Catálogo de Produtos - Sistema Web}
+    \end{figure}
+
+    \subsubsection{Carrinho de Compras}
+    % Adicionar screenshot do carrinho
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/carrinho.png}
+        \caption{Carrinho de Compras - Sistema Web}
+    \end{figure}
+
+    \subsection{Aplicativo Mobile}
+    \subsubsection{Tela de Login}
+    % Adicionar screenshot do login mobile
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/mobile_login.png}
+        \caption{Tela de Login - Aplicativo Mobile}
+    \end{figure}
+
+    \subsubsection{Lista de Produtos}
+    % Adicionar screenshot da lista de produtos mobile
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/mobile_produtos.png}
+        \caption{Lista de Produtos - Aplicativo Mobile}
+    \end{figure}
+
+    \subsubsection{Perfil do Usuário}
+    % Adicionar screenshot do perfil mobile
+    \begin{figure}[H]
+        \centering
+        % Adicionar \includegraphics{caminho/para/imagem/mobile_perfil.png}
+        \caption{Perfil do Usuário - Aplicativo Mobile}
+    \end{figure}
+
+    \section{Fluxo de Navegação}
+    
+    \subsection{Sistema Desktop}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            node distance=3cm and 5cm,
+            box/.style={rectangle, draw, fill=blue!10, rounded corners, minimum width=2.5cm, minimum height=1cm}
+        ]
+            % Nível 1
+            \node[box] (login) at (0,0) {Login};
+            \node[box] (dashboard) at (5,0) {Dashboard};
+            
+            % Nível 2
+            \node[box] (fornecedores) at (10,2) {Fornecedores};
+            \node[box] (relatorios) at (10,0) {Relatórios};
+            \node[box] (produtos) at (10,-2) {Produtos};
+            \node[box] (estoque) at (5,-2) {Estoque};
+            
+            % Conexões
+            \draw[->] (login) -- (dashboard);
+            \draw[->] (dashboard) -- (fornecedores);
+            \draw[->] (dashboard) -- (relatorios);
+            \draw[->] (dashboard) -- (produtos);
+            \draw[->] (dashboard) -- (estoque);
+        \end{tikzpicture}
+        \caption{Fluxo de Navegação - Sistema Desktop}
+        \label{fig:fluxo-desktop}
+    \end{figure}
+    
+    \subsection{Sistema Web}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            node distance=3cm and 5cm,
+            box/.style={rectangle, draw, fill=green!10, rounded corners, minimum width=2.5cm, minimum height=1cm}
+        ]
+            % Nível 1
+            \node[box] (login) at (0,0) {Login};
+            \node[box] (home) at (5,0) {Home};
+            
+            % Nível 2
+            \node[box] (pedidos) at (10,2) {Pedidos};
+            \node[box] (carrinho) at (10,0) {Carrinho};
+            \node[box] (catalogo) at (10,-2) {Catálogo};
+            \node[box] (perfil) at (5,-2) {Perfil};
+            
+            % Conexões
+            \draw[->] (login) -- (home);
+            \draw[->] (home) -- (pedidos);
+            \draw[->] (home) -- (carrinho);
+            \draw[->] (home) -- (catalogo);
+            \draw[->] (home) -- (perfil);
+        \end{tikzpicture}
+        \caption{Fluxo de Navegação - Sistema Web}
+        \label{fig:fluxo-web}
+    \end{figure}
+    
+    \subsection{Aplicativo Mobile}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            node distance=3cm and 5cm,
+            box/.style={rectangle, draw, fill=orange!10, rounded corners, minimum width=2.5cm, minimum height=1cm}
+        ]
+            % Nível 1
+            \node[box] (splash) at (0,0) {Splash};
+            \node[box] (login) at (5,0) {Login};
+            \node[box] (home) at (10,0) {Home};
+            
+            % Nível 2
+            \node[box] (conta) at (15,2) {Minha Conta};
+            \node[box] (carrinho) at (15,0) {Carrinho};
+            \node[box] (produtos) at (15,-2) {Produtos};
+            \node[box] (pedidos) at (10,-2) {Pedidos};
+            
+            % Conexões
+            \draw[->] (splash) -- (login);
+            \draw[->] (login) -- (home);
+            \draw[->] (home) -- (conta);
+            \draw[->] (home) -- (carrinho);
+            \draw[->] (home) -- (produtos);
+            \draw[->] (home) -- (pedidos);
+        \end{tikzpicture}
+        \caption{Fluxo de Navegação - Aplicativo Mobile}
+        \label{fig:fluxo-mobile}
+    \end{figure}
+    
+    \subsection{Legenda}
+    \begin{itemize}
+        \item \textbf{Sistema Desktop (Azul):} Interface administrativa para gestão completa
+        \item \textbf{Sistema Web (Verde):} Interface responsiva para clientes e fornecedores
+        \item \textbf{Aplicativo Mobile (Laranja):} Interface otimizada para dispositivos móveis
+    \end{itemize}
+
+    \subsection{Responsividade}
+    O sistema foi desenvolvido seguindo princípios de design responsivo, adaptando-se aos seguintes breakpoints:
+
+    \begin{itemize}
+        \item Mobile: < 768px
+        \item Tablet: 768px - 1024px
+        \item Desktop: > 1024px
+    \end{itemize}
+
+    \subsection{Elementos de Interface}
+    \subsubsection{Componentes Comuns}
+    \begin{itemize}
+        \item Barra de navegação
+        \item Botões de ação
+        \item Cards de produtos
+        \item Formulários
+        \item Modais de confirmação
+        \item Mensagens de feedback
+    \end{itemize}
+
+    \subsubsection{Paleta de Cores}
+    \begin{itemize}
+        \item Primária: \#2E7D32 (Verde)
+        \item Secundária: \#1976D2 (Azul)
+        \item Texto: \#333333
+        \item Fundo: \#FFFFFF
+        \item Alertas: \#F44336 (Vermelho)
+    \end{itemize}
+
+    \section{Arquitetura do Sistema}
+    \subsection{Visão Geral}
+    O sistema segue uma arquitetura distribuída em camadas, utilizando padrões modernos de desenvolvimento e integração entre diferentes plataformas.
+
+    \begin{figure}[H]
+        \centering
+        % Exemplo de diagrama desenhado com TikZ
+        \begin{tikzpicture}[node distance=1.5cm, auto]
+            % Define os blocos
+            \node [draw, rectangle, fill=blue!20, minimum width=3cm, minimum height=1cm] (presentation) {Camada de Apresentação};
+            \node [draw, rectangle, fill=green!20, below of=presentation, minimum width=3cm, minimum height=1cm] (business) {Camada de Negócios};
+            \node [draw, rectangle, fill=red!20, below of=business, minimum width=3cm, minimum height=1cm] (data) {Camada de Dados};
+            
+            % Conecta os blocos
+            \draw [->] (presentation) -- (business);
+            \draw [->] (business) -- (data);
+        \end{tikzpicture}
+        \caption{Arquitetura Geral do Sistema}
+    \end{figure}
+
+    \subsection{Componentes do Sistema}
+    \subsubsection{Camada de Apresentação}
+    \begin{itemize}
+        \item Sistema Desktop (C\#/WPF);
+        \item Interface Web (ASP.NET MVC);
+        \item Aplicativo Mobile (Flutter).
+    \end{itemize}
+
+    \subsubsection{Camada de Negócios}
+    \begin{itemize}
+        \item API REST;
+        \item Serviços de Negócio;
+        \item Validações;
+        \item Regras de Negócio.
+    \end{itemize}
+
+    \subsubsection{Camada de Dados}
+    \begin{itemize}
+        \item SQL Server;
+        \item Entity Framework;
+        \item Repositórios.
+    \end{itemize}
+
+    \section{Modelagem do Sistema}
+    \subsection{Diagramas UML}
+
+    \subsubsection{Diagrama de Casos de Uso}
+    \begin{figure}[H]
+        \centering
+        % Exemplo de diagrama de casos de uso
+        \begin{tikzpicture}
+            \begin{umlusecase}[x=5, y=0]{Realizar Cadastro}
+            \end{umlusecase}
+            \begin{umlusecase}[x=5, y=-2]{Login}
+            \end{umlusecase}
+            \begin{umlusecase}[x=5, y=-4]{Visualizar Produtos}
+            \end{umlusecase}
+            \begin{umlactor}[x=0, y=-1]{Cliente}
+            \end{umlactor}
+            \umlassoc{Cliente}{usecase-1}
+            \umlassoc{Cliente}{usecase-2}
+            \umlassoc{Cliente}{usecase-3}
+        \end{tikzpicture}
+        \caption{Diagrama de Casos de Uso}
+    \end{figure}
+
+    \subsubsection{Diagrama de Classes}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \begin{class}[text width=6cm]{User}{0,0}
+                \attribute{- id: int}
+                \attribute{- username: string}
+                \attribute{- email: string}
+                \attribute{- password: string}
+                \operation{+ login()}
+                \operation{+ register()}
+                \operation{+ updateProfile()}
+            \end{class}
+            
+            \begin{class}[text width=6cm]{Product}{0,-5}
+                \attribute{- id: int}
+                \attribute{- nome: string}
+                \attribute{- quantidade: int}
+                \attribute{- preco: decimal}
+                \attribute{- descricao: string}
+                \attribute{- linkImg: string}
+                \operation{+ create()}
+                \operation{+ update()}
+                \operation{+ delete()}
+            \end{class}
+            
+            \begin{class}[text width=6cm]{Cart}{8, -2.5}
+                \attribute{- id: int}
+                \attribute{- userId: int}
+                \attribute{- items: List<CartItem>}
+                \operation{+ addItem()}
+                \operation{+ removeItem()}
+                \operation{+ updateQuantity()}
+            \end{class}
+            
+            \begin{class}[text width=6cm]{Supplier}{0,-10}
+                \attribute{- id: int}
+                \attribute{- nome: string}
+                \attribute{- telefone: string}
+                \attribute{- email: string}
+                \attribute{- site: string}
+                \operation{+ create()}
+                \operation{+ update()}
+                \operation{+ delete()}
+            \end{class}
+            
+            % Relacionamentos
+            \association{User}{}{}{Cart}
+            \aggregation{Cart}{}{}{Product}
+            \aggregation{Supplier}{}{}{Product}
+        \end{tikzpicture}
+        \caption{Diagrama de Classes}
+    \end{figure}
+
+    \subsection{Modelo de Dados}
+    \subsubsection{Diagrama Entidade-Relacionamento}
+    \begin{figure}[H]
+        \centering
+        % Diagrama ER usando TikZ
+        \begin{tikzpicture}[node distance=2cm, auto]
+            % Entidades
+            \node [entity] (User) {User};
+            \node [entity, right of=User, xshift=4cm] (Product) {Product};
+            \node [entity, below of=User, yshift=-2cm] (Cart) {Cart};
+            \node [entity, below of=Product, yshift=-2cm] (Supplier) {Supplier};
+            
+            % Relacionamentos
+            \draw (User) -- node[above] {1..*} (Cart);
+            \draw (Cart) -- node[above] {1..*} (Product);
+            \draw (Supplier) -- node[right] {1..*} (Product);
+        \end{tikzpicture}
+        \caption{Modelo ER do Banco de Dados}
+    \end{figure}
+
+    \newpage
+
+    \section{Implementação}
+    \subsection{Tecnologias Utilizadas}
+    \begin{itemize}
+        \item \textbf{Backend}:
+        \begin{itemize}
+            \item Node.js
+            \item C\# (.NET Framework)
+            \item ASP.NET Core
+            \item Entity Framework
+            \item SQL Server
+        \end{itemize}
+        
+        \item \textbf{DevOps}:
+        \begin{itemize}
+            \item Docker
+            \item Docker Compose
+            \item Git
+        \end{itemize}
+    \end{itemize}
+
+    \section{Documentação da API}
+    \subsection{Visão Geral}
+    A API REST do Urban Farm utiliza o padrão HTTP/JSON para comunicação, com autenticação via JWT (JSON Web Tokens).
+
+    \subsection{Autenticaão}
+    \subsubsection{Login}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=json, caption={Endpoint de Login}]
+    POST /api/auth/login
+    Content-Type: application/json
+
+    Request:
+    {
+        "login": "string",     // email ou username
+        "password": "string"
+    }
+
+    Response:
+    {
+        "isValid": boolean,
+        "idUser": number,
+        "token": "string"
+    }
+    \end{lstlisting}
+    \end{figure}
+
+    \subsection{Endpoints de Usuários}
+    \subsubsection{Listar Usuários}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=json, caption={Listar Usuários}]
+    GET /api/users
+    Authorization: Bearer {token}
+
+    Response:
+    [
+        {
+            "id": number,
+            "username": "string",
+            "email": "string"
+        }
+    ]
+    \end{lstlisting}
+    \end{figure}
+
+    \subsubsection{Obter Usuário Específico}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=json, caption={Obter Usuário Específico}]
+    GET /api/users/{id}
+    Authorization: Bearer {token}
+
+    Response:
+    {
+        "id": number,
+        "username": "string",
+        "email": "string"
+    }
+    \end{lstlisting}
+    \end{figure}
+
+    \subsection{Endpoints de Produtos}
+    \subsubsection{Listar Produtos}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=json, caption={Listar Produtos}]
+    GET /api/products
+    Authorization: Bearer {token}
+
+    Response:
+    [
+        {
+            "id": number,
+            "nome": "string",
+            "quantidade": number,
+            "descricao": "string",
+            "linkImg": "string",
+            "preco": number
+        }
+    ]
+    \end{lstlisting}
+    \end{figure}
+
+    \subsection{Endpoints do Carrinho}
+    \subsubsection{Gerenciar Carrinho}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=json, caption={Gerenciar Carrinho}]
+    POST /api/cart/items
+    Authorization: Bearer {token}
+
+    Request:
+    {
+        "productId": number,
+        "quantity": number
+    }
+
+    Response:
+    {
+        "success": boolean,
+        "cartTotal": number,
+        "itemCount": number
+    }
+    \end{lstlisting}
+    \end{figure}
+
+    \subsection{Implementação das Classes Principais}
+    \subsubsection{Classe User}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=JavaScript, caption={Implementação da Classe User}]
+    class User {
+        static getUsers() {
+            return new Promise((resolve, reject) => {
+                banco.query(
+                    "SELECT * FROM users ORDER BY id DESC",
+                    (err, results) => {
+                        if (err) reject(err);
+                        resolve(results);
+                    }
+                );
+            });
+        }
+
+        static login(login, password) {
+            return new Promise((resolve, reject) => {
+                banco.query(
+                    `SELECT * FROM users 
+                    WHERE (username LIKE ? OR email LIKE ?) 
+                    AND password LIKE ?`,
+                    [login, login, password],
+                    (err, results) => {
+                        if (err) reject(err);
+                        resolve({
+                            isValid: results.length > 0,
+                            idUser: results[0]?.id
+                        });
+                    }
+                );
+            });
+        }
+    }
+    \end{lstlisting}
+    \end{figure}
+
+    \subsubsection{Classe Products}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=JavaScript, caption={Implementação da Classe Products}]
+    class Products {
+        static getProducts() {
+            return new Promise((resolve, reject) => {
+                banco.query(
+                    "SELECT * FROM produtos ORDER BY id DESC",
+                    (err, results) => {
+                        if (err) reject(err);
+                        resolve(results);
+                    }
+                );
+            });
+        }
+
+        static newProduct(nome, qnt, descricao, linkImg, preco) {
+            return new Promise((resolve, reject) => {
+                banco.query(
+                    `INSERT INTO produtos 
+                    (nome, quantidade, descricao, linkImg, preco) 
+                    VALUES (?, ?, ?, ?, ?)`,
+                    [nome, qnt, descricao, linkImg, preco],
+                    (err, results) => {
+                        if (err) reject(err);
+                        resolve(results.insertId);
+                    }
+                );
+            });
+        }
+    }
+    \end{lstlisting}
+    \end{figure}
+
+    \subsection{Tratamento de Erros}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=json, caption={Formato de Erro}]
+    {
+        "error": {
+            "code": "string",
+            "message": "string",
+            "details": "string"
+        }
+    }
+    \end{lstlisting}
+    \end{figure}
+
+    \newpage
+
+    \section{Segurança}
+    \subsection{LGPD (Lei Geral de Proteção de Dados)}
+    \subsubsection{Conformidade com LGPD}
+    O sistema implementa as seguintes medidas para garantir conformidade com a LGPD:
+
+    \begin{itemize}
+        \item \textbf{Consentimento do Usuário}
+        \begin{itemize}
+            \item Termos de uso claros;
+            \item Política de privacidade;
+            \item Opt-in explícito para coleta de dados.
+        \end{itemize}
+        
+        \item \textbf{Proteção de Dados}
+        \begin{itemize}
+            \item Criptografia de dados sensíveis;
+            \item Acesso controlado às informações;
+            \item Logs de acesso e modificações.
+        \end{itemize}
+        
+        \item \textbf{Direitos do Usuário}
+        \begin{itemize}
+            \item Acesso aos dados pessoais;
+            \item Correção de dados incorretos;
+            \item Exclusão de dados (direito ao esquecimento).
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Segurança da Aplicação}
+    \subsubsection{Autenticação e Autorização}
+    \begin{itemize}
+        \item JWT (JSON Web Tokens);
+        \item Controle de sessão;
+        \item Níveis de acesso baseados em perfil;
+        \item Senha com requisitos mínimos de segurança.
+    \end{itemize}
+
+    \subsubsection{Proteção contra Ataques}
+    \begin{itemize}
+        \item SQL Injection;
+        \item Cross-Site Scripting (XSS);
+    \end{itemize}
+
+    \section{Anexos}
+    \subsection{Scripts do Banco de Dados}
+    \subsubsection{Criação do Banco e Tabelas}
+    \begin{lstlisting}[language=SQL, caption={Script de Criação do Banco de Dados}]
+    -- Criação do banco de dados
+    CREATE DATABASE urban_farm;
+    GO
+
+    USE urban_farm;
+    GO
+
+    -- Tabela de Usuários
+    CREATE TABLE users (
+        id INT PRIMARY KEY IDENTITY(1,1),
+        username VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        created_at DATETIME DEFAULT GETDATE(),
+        updated_at DATETIME DEFAULT GETDATE()
+    );
+
+    -- Tabela de Produtos
+    CREATE TABLE produtos (
+        id INT PRIMARY KEY IDENTITY(1,1),
+        nome VARCHAR(100) NOT NULL,
+        quantidade INT NOT NULL DEFAULT 0,
+        descricao TEXT,
+        linkImg VARCHAR(255),
+        preco DECIMAL(10,2) NOT NULL,
+        created_at DATETIME DEFAULT GETDATE(),
+        updated_at DATETIME DEFAULT GETDATE()
+    );
+
+    -- Tabela de Fornecedores
+    CREATE TABLE fornecedores (
+        id INT PRIMARY KEY IDENTITY(1,1),
+        nome VARCHAR(100) NOT NULL,
+        telefone VARCHAR(20),
+        email VARCHAR(100),
+        site VARCHAR(255),
+        created_at DATETIME DEFAULT GETDATE(),
+        updated_at DATETIME DEFAULT GETDATE()
+    );
+
+    -- Tabela de Carrinho
+    CREATE TABLE carrinho (
+        id INT PRIMARY KEY IDENTITY(1,1),
+        user_id INT NOT NULL,
+        product_id INT NOT NULL,
+        quantidade INT NOT NULL DEFAULT 1,
+        created_at DATETIME DEFAULT GETDATE(),
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (product_id) REFERENCES produtos(id)
+    );
+    \end{lstlisting}
+
+    \newpage
+
+    \section{Segurança Detalhada}
+    \subsection{Sistema de Autenticação}
+    \begin{itemize}
+        \item \textbf{Fluxo de Autenticação}
+        \begin{itemize}
+            \item Validação inicial de credenciais;
+            \item Geração de JWT com payload criptografado;
+            \item Armazenamento seguro do token;
+            \item Renovação automática do token;
+            \item Logout com invalidação do token.
+        \end{itemize}
+        
+        \item \textbf{Validações de Entrada}
+        \begin{itemize}
+            \item Sanitização de inputs;
+            \item Validação de formatos (email, telefone, etc);
+            \item Prevenção contra XSS;
+            \item Validação de tamanhos máximos;
+            \item Filtros anti-injection.
+        \end{itemize}
+    \end{itemize}
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[node distance=2cm]
+            \node [draw, rectangle] (client) {Cliente};
+            \node [draw, rectangle, right of=client, xshift=3cm] (auth) {Auth Service};
+            \node [draw, rectangle, right of=auth, xshift=3cm] (token) {JWT};
+            
+            \draw [->] (client) -- node[above] {Credenciais} (auth);
+            \draw [->] (auth) -- node[above] {Token} (token);
+            \draw [->] (token) to [bend left] node[below] {Autorização} (client);
+        \end{tikzpicture}
+        \caption{Fluxo de Autenticação}
+    \end{figure}
+
+    \subsection{Frontend Web Detalhado}
+    \subsubsection{Estrutura de Componentes}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=HTML, caption={Exemplo de Componente Web}]
+    <div class="product-card">
+        <img src="@Model.LinkImg" alt="@Model.Nome">
+        <div class="product-info">
+            <h3>@Model.Nome</h3>
+            <p>@Model.Descricao</p>
+            <span class="price">R$ @Model.Preco</span>
+            <button class="btn-add-cart" 
+                    data-id="@Model.Id">
+                Adicionar ao Carrinho
+            </button>
+        </div>
+    </div>
+    \end{lstlisting}
+    \end{figure}
+
+    \subsubsection{Gerenciamento de Estado}
+    \begin{itemize}
+        \item \textbf{Carrinho}
+        \begin{itemize}
+            \item Cache local dos itens;
+            \item Sincronização com backend;
+            \item Atualização em tempo real;
+            \item Persistência de sessão.
+        \end{itemize}
+        
+        \item \textbf{Usuário}
+        \begin{itemize}
+            \item Dados de perfil;
+            \item Preferências;
+            \item Histórico de compras;
+            \item Estado de autenticação.
+        \end{itemize}
+    \end{itemize}
+
+    \section{Documentação Completa da API}
+    \subsection{Endpoints de Autenticação}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=json, caption={Registro de Usuário}]
+    POST /api/auth/register
+    Content-Type: application/json
+
+    Request:
+    {
+        "username": "string",
+        "email": "string",
+        "password": "string"
+    }
+
+    Response:
+    {
+        "success": true,
+        "userId": number,
+        "token": "string"
+    }
+    \end{lstlisting}
+    \end{figure}
+
+    \subsection{Endpoints de Produtos}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=json, caption={Criar Novo Produto}]
+    POST /api/products
+    Authorization: Bearer {token}
+
+    Request:
+    {
+        "nome": "string",
+        "quantidade": number,
+        "descricao": "string",
+        "linkImg": "string",
+        "preco": number
+    }
+
+    Response:
+    {
+        "id": number,
+        "nome": "string",
+        "quantidade": number,
+        "descricao": "string",
+        "linkImg": "string",
+        "preco": number
+    }
+    \end{lstlisting}
+    \end{figure}
+
+    \section{Deployment e Infraestrutura}
+    \subsection{Requisitos de Sistema}
+    \begin{itemize}
+        \item \textbf{Servidor Web}
+        \begin{itemize}
+            \item Windows Server 2019+;
+            \item IIS 10+;
+            \item .NET Framework 4.8+;
+            \item 8GB RAM mínimo;
+            \item 4 vCPUs mínimo.
+        \end{itemize}
+        
+        \item \textbf{Banco de Dados}
+        \begin{itemize}
+            \item SQL Server 2019+;
+            \item 16GB RAM mínimo;
+            \item SSD para storage;
+            \item Backup automático.
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Variáveis de Ambiente}
+    \begin{figure}[H]
+    \begin{lstlisting}[language=text, caption={Arquivo .env}]
+    # Conexão com banco
+    DB_SERVER=localhost
+    DB_NAME=urban_farm
+    DB_USER=app_user
+    DB_PASSWORD=****
+
+    # Configurações da API
+    API_PORT=5000
+    JWT_SECRET=****
+    CORS_ORIGIN=https://urbanfarm.com
+
+    \end{lstlisting}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[node distance=2cm]
+            \node [draw, rectangle] (build) {Build};
+            \node [draw, rectangle, right of=build, xshift=2cm] (test) {Testes};
+            \node [draw, rectangle, right of=test, xshift=2cm] (deploy) {Deploy};
+            \node [draw, rectangle, right of=deploy, xshift=2cm] (prod) {Produção};
+            
+            \draw [->] (build) -- (test);
+            \draw [->] (test) -- (deploy);
+            \draw [->] (deploy) -- (prod);
+        \end{tikzpicture}
+        \caption{Pipeline de Deploy}
+    \end{figure}
+
+
+    \section{Considerações Finais}
+    \subsection{Limitações Conhecidas}
+    \begin{itemize}
+        \item Capacidade máxima de usuários simultâneos;
+        \item Limitações de processamento;
+        \item Restrições de armazenamento.
+    \end{itemize}
+
+    \subsection{Melhorias Futuras}
+    \begin{itemize}
+        \item Integração com sistemas de pagamento;
+        \item Implementação de BI;
+        \item Expansão do app mobile;
+        \item Otimização de performance.
+    \end{itemize}
+
+    \section{API Node.js}
+    \subsection{Visão Geral}
+    A API foi desenvolvida em Node.js e é responsável por:
+    \begin{itemize}
+        \item Servir páginas web
+        \item Disponibilizar endpoints para consulta ao banco de dados
+        \item Gerenciar autenticação web
+    \end{itemize}
+
+    \subsection{Endpoints Principais}
+    % Adicionar documentação dos endpoints específicos da API Node.js
+
+    \section{Ambiente de Desenvolvimento}
+    \subsection{Configuração Docker}
+    O projeto utiliza Docker para containerização dos serviços. Abaixo estão as configurações dos containers:
+
+    \subsubsection{Container da Aplicação Node.js}
+    \begin{lstlisting}[language=YAML, caption={docker-compose.yml - Aplicação}]
+    services:
+    pim:
+        container_name: pim
+        image: node:latest
+        ports:
+        - "${PORT:-3005}:${PORT:-3005}"
+        environment:
+        DATABASE_HOST: ${DATABASE_HOST}
+        DATABASE_USER: ${DATABASE_USER}
+        DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+        DATABASE_NAME: ${DATABASE_NAME}
+        NODE_ENV: ${ENVIRONMENT}
+        volumes:
+        - ./:/app
+        working_dir: /app
+        command: bash -c "npm install && npm start"
+        restart: unless-stopped
+        networks:
+        - app
+        - db-net
+    \end{lstlisting}
+
+    \subsubsection{Container do SQL Server}
+    \begin{lstlisting}[language=YAML, caption={docker-compose.yml - SQL Server}]
+    services:
+    sqlserver:
+        container_name: bancoDeDados_pim
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+        - "1433:1433"
+        environment:
+        ACCEPT_EULA: Y
+        SA_PASSWORD: ${SQL_PASSWORD}
+        MSSQL_PID: Express
+        volumes:
+        - ./sql/sqlserver-data:/var/opt/mssql/data
+        restart: unless-stopped
+        networks:
+        - db-net
+
+    networks:
+    db-net:
+        name: db-net-pim
+        driver: bridge
+    \end{lstlisting}
+
+    \subsection{Variáveis de Ambiente}
+    Para executar os containers, é necessário configurar as seguintes variáveis de ambiente:
+
+    \begin{itemize}
+        \item \textbf{Aplicação}:
+        \begin{itemize}
+            \item PORT: Porta da aplicação (default: 3005)
+            \item DATABASE\_HOST: Endereço do banco de dados
+            \item DATABASE\_USER: Usuário do banco
+            \item DATABASE\_PASSWORD: Senha do banco
+            \item DATABASE\_NAME: Nome do banco de dados
+            \item ENVIRONMENT: Ambiente de execução
+        \end{itemize}
+        
+        \item \textbf{SQL Server}:
+        \begin{itemize}
+            \item SQL\_PASSWORD: Senha do usuário SA
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Redes Docker}
+    O projeto utiliza duas redes Docker:
+    \begin{itemize}
+        \item \textbf{app}: Rede interna da aplicação
+        \item \textbf{db-net}: Rede compartilhada entre aplicação e banco de dados
+    \end{itemize}
+
+    \section{Controle de Versão}
+    O código fonte completo do projeto está disponível no GitHub:
+    \begin{itemize}
+        \item Repositório: \url{https://github.com/SNeto99/PIM-4-semestre}
+    \end{itemize}
+
+    \section{Proposta de Empreendimento}
+    \subsection{Introdução}
+    A proposta combina a criação de uma startup para gerenciar e otimizar a compra e venda de produtos agrícolas. Este modelo utiliza tecnologias desenvolvidas no projeto de sistema de controle, proporcionando uma cadeia produtiva eficiente, conectando produtores e consumidores locais de maneira ágil e segura.
+
+    O empreendimento alinha-se aos Objetivos de Desenvolvimento Sustentável (ODS) da ONU e adota práticas ESG, priorizando sustentabilidade ambiental, inclusão social e transparência na gestão.
+
+    \subsection{Objetivo Geral}
+    Criar uma fazenda urbana integrada a um sistema digital de compra e venda, capaz de atender às necessidades alimentares urbanas com eficiência, sustentabilidade e acessibilidade.
+
+    \subsection{Objetivos Específicos}
+    \begin{itemize}
+        \item \textbf{Produção Local:} Cultivar alimentos frescos e saudáveis por meio de técnicas agrícolas modernas
+        \item \textbf{Comercialização Digital:} Facilitar a compra e venda através do sistema integrado
+        \item \textbf{Sustentabilidade:} Reduzir desperdícios e otimizar recursos
+        \item \textbf{Inclusão Social:} Criar oportunidades para pequenos produtores
+        \item \textbf{Inovação Tecnológica:} Usar o sistema para integrar dados
+    \end{itemize}
+
+    \subsection{Impacto e Benefícios}
+    \subsubsection{Ambiental}
+    \begin{itemize}
+        \item Redução de resíduos e desperdício alimentar
+        \item Menor uso de água e energia
+        \item Diminuição da emissão de CO₂
+    \end{itemize}
+
+    \subsubsection{Social}
+    \begin{itemize}
+        \item Geração de empregos em áreas urbanas
+        \item Melhora no acesso a alimentos frescos
+        \item Promoção de hábitos alimentares saudáveis
+    \end{itemize}
+
+    \subsubsection{Econômico}
+    \begin{itemize}
+        \item Sustentação financeira por meio de vendas diretas
+        \item Escalabilidade do modelo
+        \item Apoio a pequenos agricultores
+    \end{itemize}
+
+    \subsection{Modelo de Negócio}
+    \begin{itemize}
+        \item \textbf{Fonte de Receita:}
+        \begin{itemize}
+            \item Venda de produtos agrícolas
+            \item Assinaturas de cestas semanais
+            \item Parcerias com restaurantes
+        \end{itemize}
+        \item \textbf{Clientes:} Famílias urbanas, restaurantes e pequenos comércios
+        \item \textbf{Parcerias:} Cooperativas agrícolas e redes de distribuição
+    \end{itemize}
+
+    \section{Gestão da Qualidade}
+    \subsection{Garantia de Qualidade}
+    \begin{itemize}
+        \item \textbf{Desenvolvimento:}
+        \begin{itemize}
+            \item Code review
+            \item Testes unitários
+            \item Testes de integração
+            \item Testes de aceitação
+        \end{itemize}
+        \item \textbf{Documentação:}
+        \begin{itemize}
+            \item Revisão por pares
+            \item Versionamento
+            \item Rastreabilidade
+        \end{itemize}
+        \item \textbf{Processo:}
+        \begin{itemize}
+            \item Metodologia ágil
+            \item Sprints semanais
+            \item Reuniões diárias
+        \end{itemize}
+    \end{itemize}
+
+    \section{Cronograma do Projeto}
+    \subsection{Gráfico de Gantt}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            scale=0.8,
+            transform shape,
+            calendar/.style={rectangle, draw, fill=gray!20, minimum height=5mm},
+            milestone/.style={rectangle, draw, fill=blue!20, minimum height=5mm},
+            complete/.style={rectangle, draw, fill=green!20, minimum height=5mm}
+        ]
+            % Eixo temporal
+            \draw[->] (0,0) -- (12,0);
+            \foreach \x in {0,1,...,11}
+                \draw (\x,0.1) -- (\x,-0.1) node[below] {\scriptsize \ifnum\x=0 Ago\else\ifnum\x=3 Set\else\ifnum\x=6 Out\else\ifnum\x=9 Nov\fi\fi\fi\fi};
+            
+            % Tarefas
+            \node[anchor=east] at (-0.5,-1) {Especificação};
+            \draw[complete] (0,-1.2) rectangle (2,-0.8);
+            
+            \node[anchor=east] at (-0.5,-2) {Backend};
+            \draw[complete] (1.5,-2.2) rectangle (5,-1.8);
+            
+            \node[anchor=east] at (-0.5,-3) {Frontend Desktop};
+            \draw[complete] (3,-3.2) rectangle (7,-2.8);
+            
+            \node[anchor=east] at (-0.5,-4) {Frontend Web};
+            \draw[complete] (4.5,-4.2) rectangle (8.5,-3.8);
+            
+            \node[anchor=east] at (-0.5,-5) {App Mobile};
+            \draw[complete] (6,-5.2) rectangle (10,-4.8);
+            
+            \node[anchor=east] at (-0.5,-6) {Testes};
+            \draw[complete] (8,-6.2) rectangle (11,-5.8);
+            
+            \node[anchor=east] at (-0.5,-7) {Documentação};
+            \draw[complete] (0,-7.2) rectangle (11,-6.8);
+            
+            % Marcos do projeto
+            \node[milestone] at (0,-8) {Início};
+            \node[milestone] at (11,-8) {Entrega};
+            
+            % Responsáveis
+            \node[anchor=west] at (11.2,-1) {\scriptsize André};
+            \node[anchor=west] at (11.2,-2) {\scriptsize Carlos};
+            \node[anchor=west] at (11.2,-3) {\scriptsize Lucas};
+            \node[anchor=west] at (11.2,-4) {\scriptsize Davi};
+            \node[anchor=west] at (11.2,-5) {\scriptsize André};
+            \node[anchor=west] at (11.2,-6) {\scriptsize Carlos};
+            \node[anchor=west] at (11.2,-7) {\scriptsize Equipe};
+            
+            % Legenda
+            \node[complete] at (4,1) {};
+            \node[anchor=west] at (4.5,1) {\scriptsize Concluído};
+            \node[milestone] at (7,1) {};
+            \node[anchor=west] at (7.5,1) {\scriptsize Marco};
+        \end{tikzpicture}
+        \caption{Cronograma de Desenvolvimento do Projeto (Ago/2024 - Nov/2024)}
+    \end{figure}
+
+    \subsection{Detalhamento das Entregas}
+    \begin{itemize}
+        \item \textbf{Agosto/2024}
+        \begin{itemize}
+            \item Especificação inicial do sistema
+            \item Início da documentação
+        \end{itemize}
+        
+        \item \textbf{Setembro/2024}
+        \begin{itemize}
+            \item Desenvolvimento do backend
+            \item Início do frontend desktop
+        \end{itemize}
+        
+        \item \textbf{Outubro/2024}
+        \begin{itemize}
+            \item Conclusão do frontend desktop
+            \item Desenvolvimento do frontend web
+            \item Início do app mobile
+        \end{itemize}
+        
+        \item \textbf{Novembro/2024}
+        \begin{itemize}
+            \item Conclusão do app mobile
+            \item Testes integrados
+            \item Finalização da documentação
+            \item Entrega final (20/11/2024)
+        \end{itemize}
+    \end{itemize}
+
+    \end{document}
