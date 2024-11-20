@@ -1175,28 +1175,110 @@
     \end{itemize}
 
     \section{Gestão da Qualidade}
-    \subsection{Garantia de Qualidade}
+
+    \subsection{Visão Geral}
+    O sistema de compra e venda de produtos agrícolas foi desenvolvido com um rigoroso controle de qualidade em todas as suas fases, desde o planejamento até a operação em ambiente real.
+
+    \subsection{Etapas do Controle de Qualidade}
+
+    \subsubsection{Planejamento e Definição de Requisitos}
+    Durante o planejamento, todos os requisitos do sistema foram analisados detalhadamente por meio de entrevistas com stakeholders. Um Documento de Requisitos do Sistema (DRS) foi elaborado para orientar o desenvolvimento. Além disso, critérios de aceitação claros foram definidos, priorizando:
     \begin{itemize}
-        \item \textbf{Desenvolvimento:}
-        \begin{itemize}
-            \item Code review
-            \item Testes unitários
-            \item Testes de integração
-            \item Testes de aceitação
-        \end{itemize}
-        \item \textbf{Documentação:}
-        \begin{itemize}
-            \item Revisão por pares
-            \item Versionamento
-            \item Rastreabilidade
-        \end{itemize}
-        \item \textbf{Processo:}
-        \begin{itemize}
-            \item Metodologia ágil
-            \item Sprints semanais
-            \item Reuniões diárias
-        \end{itemize}
+        \item Desempenho
+        \item Escalabilidade
+        \item Usabilidade
+        \item Conformidade com a LGPD
     \end{itemize}
+
+    \subsubsection{Design do Sistema}
+    O design do sistema foi fundamentado em uma arquitetura modular e escalável, que facilita manutenção e evolução. 
+    \begin{itemize}
+        \item Utilização de padrões de design (MVC)
+        \item Desenvolvimento de protótipos
+        \item Validação com usuários
+        \item Ajustes pré-implementação
+    \end{itemize}
+
+    \subsubsection{Desenvolvimento}
+    O desenvolvimento seguiu metodologias ágeis, com:
+    \begin{itemize}
+        \item Entregas incrementais
+        \item Feedback constante
+        \item Revisões sistemáticas de código
+        \item Testes unitários automatizados
+        \item Testes de integração
+    \end{itemize}
+
+    \subsubsection{Testes}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            box/.style={
+                rectangle,
+                draw,
+                rounded corners,
+                fill=blue!10,
+                minimum width=3cm,
+                minimum height=1.5cm,
+                text centered
+            }
+        ]
+            % Nó central
+            \node[box] (centro) at (0,0) {Testes};
+            
+            % Nós ao redor (aumentado a distância)
+            \node[box] (func) at (3,2) {Funcionais};
+            \node[box] (desemp) at (3,-2) {Desempenho};
+            \node[box] (seg) at (-3,2) {Segurança};
+            \node[box] (comp) at (-3,-2) {Compatibilidade};
+            
+            % Conexões
+            \draw[->] (centro) -- (func);
+            \draw[->] (centro) -- (desemp);
+            \draw[->] (centro) -- (seg);
+            \draw[->] (centro) -- (comp);
+        \end{tikzpicture}
+        \caption{Dimensões de Testes do Sistema}
+        \label{fig:testes-dimensoes}
+    \end{figure}
+
+    \subsubsection{Implantação}
+    O processo de implantação incluiu:
+    \begin{itemize}
+        \item Testes em ambiente de pré-produção
+        \item Soft launch com público restrito
+        \item Monitoramento em tempo real
+        \item Treinamento de usuários
+    \end{itemize}
+
+    \subsubsection{Manutenção e Suporte}
+    \begin{itemize}
+        \item Sistema de monitoramento contínuo
+        \item Canal de suporte dedicado
+        \item Atualizações periódicas
+        \item Análise de métricas de uso
+    \end{itemize}
+
+    \subsubsection{Conformidade e Auditoria}
+    \begin{itemize}
+        \item Conformidade com LGPD
+        \item Auditorias internas e externas
+        \item Segurança da informação
+        \item Transparência nas operações
+    \end{itemize}
+
+    \subsection{Métricas de Qualidade}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \pie{25/Cobertura de Testes, 25/Desempenho, 25/Segurança, 25/Usabilidade}
+        \end{tikzpicture}
+        \caption{Distribuição das Métricas de Qualidade}
+        \label{fig:metricas-qualidade}
+    \end{figure}
+
+    \subsection{Conclusão}
+    Com processos bem definidos e práticas consistentes de qualidade, o sistema foi entregue como uma solução robusta, confiável e eficiente. Ele não apenas atende às necessidades dos usuários, mas também está preparado para evoluir com o mercado e as demandas dos stakeholders.
 
     \section{Cronograma do Projeto}
     \subsection{Gráfico de Gantt}

@@ -20,3 +20,6 @@ C:\Users\netos\Desktop\devEnvironment\applications\PIM\desktopApp\WindowsFormsAp
 C:\Users\netos\Desktop\devEnvironment\applications\PIM\desktopApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
 C:\Users\netos\Desktop\devEnvironment\applications\PIM\desktopApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
 C:\Users\netos\Desktop\devEnvironment\applications\PIM\desktopApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\netos\Desktop\devEnvironment\applications\PIM\desktopApp\WindowsFormsApp1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\netos\Desktop\devEnvironment\applications\PIM\desktopApp\WindowsFormsApp1\bin\Debug\Newtonsoft.Json.xml
+C:\Users\netos\Desktop\devEnvironment\applications\PIM\desktopApp\WindowsFormsApp1\obj\Debug\WindowsF.A1EEDF9B.Up2Date
